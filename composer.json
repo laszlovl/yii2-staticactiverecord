@@ -1,0 +1,14 @@
+{
+    "name": "laszlovl/yii2-staticactiverecord",
+    "description": "A version of Yii2's ActiveRecord with various performance improvements at the cost of slightly less flexibility",
+    "keywords": ["yii2", "activerecord"],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "require": {
+        "yiisoft/yii2": "~2.0"
+    },
+    "autoload": {
+        "psr-4": { "lvl\\staticactiverecord\\": "" }
+    }
+}
+
