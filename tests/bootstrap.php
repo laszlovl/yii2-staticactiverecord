@@ -10,6 +10,7 @@ $_SERVER['SCRIPT_FILENAME'] = __FILE__;
 require_once(__DIR__ . '/../vendor/autoload.php');
 require_once(__DIR__ . '/../vendor/yiisoft/yii2/Yii.php');
 
+Yii::setAlias('@lvl/staticactiverecord/unit', __DIR__);
 Yii::setAlias('@yiiunit', __DIR__ . '/../vendor/yiisoft/yii2-dev/tests/unit');
 
 Yii::$classMap['yiiunit\data\ar\ActiveRecord'] = __DIR__ . '/override/ActiveRecord.php';

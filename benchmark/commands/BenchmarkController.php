@@ -9,7 +9,7 @@ use Yii;
 
 class BenchmarkController extends \yii\console\Controller
 {
-    const REPEAT = 10;
+    const REPEAT = 25;
 
     public function actionIndex()
     {
@@ -23,8 +23,6 @@ class BenchmarkController extends \yii\console\Controller
     private function benchmarks()
     {
         $this->benchmark('benchmarkGetProperty');
-
-        $this->benchmark('benchmarkGetRelation');
 
         $this->benchmark('benchmarkSetProperty');
 
@@ -70,13 +68,6 @@ class BenchmarkController extends \yii\console\Controller
     {
         foreach ($class::find()->all() as $model) {
             $temp = $model->name;
-        }
-    }
-
-    private function benchmarkGetRelation($class)
-    {
-        foreach ($class::find()->with('self')->all() as $model) {
-            $temp = $model->self;
         }
     }
 

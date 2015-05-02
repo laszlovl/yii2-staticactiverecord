@@ -39,8 +39,8 @@ be **static**: either all of your Cats have a property `owner`, or none of them 
 all other cats would have it as well.
 
 If this is indeed the case for your application, we can cache this metadata on the class level: once it's calculated for one instance of a class, for
-all other instances it can be looked up instantly. This extension's `ActiveRecord` does just that, by using PHP's static function variables to cache
-the result of a function between all instances of the containing class.
+all other instances it can be looked up instantly. This extension's `ActiveRecord` does just that, by using a static class variable to cache the result
+of a function between all instances of the containing class.
 
 This can enormously benefit your application's performance, especially for requests that handle a lot of instances of the same class, like a GridView
 or ListView with a large pagination size, or an API call on a resource collection.
@@ -55,24 +55,19 @@ the same class are created.
 ~/yii2-staticactiverecord/benchmark$ ./yii benchmark
 
 Benchmarking benchmarkGetProperty...
-Regular ActiveRecord: 0.0046327114105225
-Static ActiveRecord:  0.0035665512084961
-Improvement:          24%
-
-Benchmarking benchmarkGetRelation...
-Regular ActiveRecord: 0.029149389266968
-Static ActiveRecord:  0.024874639511108
-Improvement:          15%
-
-Benchmarking benchmarkSetProperty...
-Regular ActiveRecord: 0.0057635307312012
-Static ActiveRecord:  0.0044625282287598
+Regular ActiveRecord: 0.0089842319488525
+Static ActiveRecord:  0.0069756507873535
 Improvement:          23%
 
+Benchmarking benchmarkSetProperty...
+Regular ActiveRecord: 0.009577751159668
+Static ActiveRecord:  0.0076509952545166
+Improvement:          21%
+
 Benchmarking benchmarkValidate...
-Regular ActiveRecord: 0.022860932350159
-Static ActiveRecord:  0.017516303062439
-Improvement:          24%
+Regular ActiveRecord: 0.046598815917969
+Static ActiveRecord:  0.03521466255188
+Improvement:          25%
 ```
 
 The sum of the performance improvements in a single request of course highly depends on your specific application, but I've been able to reduce

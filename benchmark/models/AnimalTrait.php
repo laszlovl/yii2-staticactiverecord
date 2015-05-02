@@ -14,9 +14,4 @@ trait AnimalTrait {
             ['name', 'string']
         ];
     }
-
-    public function getSelf()
-    {
-        return $this->hasOne(static::class, ['id' => 'id']);
-    }
 }

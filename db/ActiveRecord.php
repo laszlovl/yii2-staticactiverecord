@@ -4,58 +4,64 @@ namespace lvl\staticactiverecord\db;
 
 class ActiveRecord extends \yii\db\ActiveRecord
 {
+    private static $getTableSchemaCache;
+    private static $primaryKeyCache;
+    private static $attributesCache;
+    private static $hasAttributeCache;
+    private static $scenariosCache;
+    
     public static function getTableSchema()
     {
-        static $tableSchema = null;
+        $class = get_called_class();
 
-        if ($tableSchema === null) {
-            $tableSchema = parent::getTableSchema();
+        if (!isset(self::$getTableSchemaCache[$class])) {
+            self::$getTableSchemaCache[$class] = parent::getTableSchema();
         }
 
-        return $tableSchema;
+        return self::$getTableSchemaCache[$class];
     }
 
     public static function primaryKey()
     {
-        static $primaryKey = null;
+        $class = get_called_class();
 
-        if ($primaryKey === null) {
-            $primaryKey = parent::primaryKey();
+        if (!isset(self::$primaryKeyCache[$class])) {
+            self::$primaryKeyCache[$class] = parent::primaryKey();
         }
 
-        return $primaryKey;
+        return self::$primaryKeyCache[$class];
     }
 
-    final public function attributes()
+    public function attributes()
     {
-        static $attributes = null;
+        $class = get_class($this);
 
-        if ($attributes === null) {
-            $attributes = parent::attributes();
+        if (!isset(self::$attributesCache[$class])) {
+            self::$attributesCache[$class] = parent::attributes();
         }
 
-        return $attributes;
+        return self::$attributesCache[$class];
     }
 
     public function hasAttribute($name)
     {
-        static $attributes = [];
+        $class = get_class($this);
 
-        if (!isset($attributes[$name])) {
-            $attributes[$name] = parent::hasAttribute($name);
+        if (!isset(self::$hasAttributeCache[$class][$name])) {
+            self::$hasAttributeCache[$class][$name] = parent::hasAttribute($name);
         }
 
-        return $attributes[$name];
+        return self::$hasAttributeCache[$class][$name];
     }
 
     public function scenarios()
     {
-        static $scenarios = null;
+        $class = get_class($this);
 
-        if ($scenarios === null) {
-            $scenarios = parent::scenarios();
+        if (!isset(self::$scenariosCache[$class])) {
+            self::$scenariosCache[$class] = parent::scenarios();
         }
 
-        return $scenarios;
+        return self::$scenariosCache[$class];
     }
 }
