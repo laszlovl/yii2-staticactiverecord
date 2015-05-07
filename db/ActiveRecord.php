@@ -9,7 +9,8 @@ class ActiveRecord extends \yii\db\ActiveRecord
     private static $attributesCache;
     private static $hasAttributeCache;
     private static $scenariosCache;
-    
+    private static $formNameCache;
+
     public static function getTableSchema()
     {
         $class = get_called_class();
@@ -63,5 +64,16 @@ class ActiveRecord extends \yii\db\ActiveRecord
         }
 
         return self::$scenariosCache[$class];
+    }
+
+    public function formName()
+    {
+        $class = get_class($this);
+
+        if (!isset(self::$formNameCache[$class])) {
+            self::$formNameCache[$class] = parent::formName();
+        }
+
+        return self::$formNameCache[$class];
     }
 }
