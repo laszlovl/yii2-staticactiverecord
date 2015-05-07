@@ -25,6 +25,10 @@ cache:
   directories:
     - vendor
     - $HOME/.composer/cache
+    - $HOME/.composer/vendor
+    
+env:
+  - COMPOSER_DISCARD_CHANGES=true
 
 install:
   - travis_retry composer self-update && composer --version
